@@ -8,22 +8,16 @@ namespace TelCo.ColorCoder
     {
         public static ColorPairMapping GetColorFromPairNumber(int pairNumber)
         {
-            int minorSize = colorMapMinor.Length;
-            int majorSize = colorMapMajor.Length;
-            if (pairNumber < 1 || pairNumber > minorSize * majorSize)
+            if (pairNumber < 1 || pairNumber > colorMapMinor.Length * colorMapMajor.Length)
             {
                 throw new ArgumentOutOfRangeException(
                     string.Format("Argument PairNumber:{0} is outside the allowed range", pairNumber));
             }
 
-            int zeroBasedPairNumber = pairNumber - 1;
-            int majorIndex = zeroBasedPairNumber / minorSize;
-            int minorIndex = zeroBasedPairNumber % minorSize;
-
             ColorPairMapping pair = new ColorPairMapping()
             {
-                majorColor = colorMapMajor[majorIndex],
-                minorColor = colorMapMinor[minorIndex]
+                majorColor = colorMapMajor[pairNumber - 1 / colorMapMinor.Length],
+                minorColor = colorMapMinor[pairNumber - 1 % colorMapMajor.Length]
             };
 
             return pair;
@@ -55,7 +49,6 @@ namespace TelCo.ColorCoder
                     string.Format("Unknown Colors: {0}", pair.ToString()));
             }
 
-            // (Note: +1 in compute is because pair number is 1 based, not zero)
             return (majorIndex * colorMapMinor.Length) + (minorIndex + 1);
         }
     }
