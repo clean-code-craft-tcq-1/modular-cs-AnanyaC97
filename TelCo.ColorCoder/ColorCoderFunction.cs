@@ -4,9 +4,9 @@ using System.Text;
 
 namespace TelCo.ColorCoder
 {
-    class ColorCoderFunction
+    public class ColorCoderFunction : ColorPairMapping
     {
-        private static ColorPair GetColorFromPairNumber(int pairNumber)
+        public static ColorPairMapping GetColorFromPairNumber(int pairNumber)
         {
             int minorSize = colorMapMinor.Length;
             int majorSize = colorMapMajor.Length;
@@ -20,7 +20,7 @@ namespace TelCo.ColorCoder
             int majorIndex = zeroBasedPairNumber / minorSize;
             int minorIndex = zeroBasedPairNumber % minorSize;
 
-            ColorPair pair = new ColorPair()
+            ColorPairMapping pair = new ColorPairMapping()
             {
                 majorColor = colorMapMajor[majorIndex],
                 minorColor = colorMapMinor[minorIndex]
@@ -28,8 +28,8 @@ namespace TelCo.ColorCoder
 
             return pair;
         }
-        
-        private static int GetPairNumberFromColor(ColorPair pair)
+
+        public static int GetPairNumberFromColor(ColorPairMapping pair)
         {
             int majorIndex = -1;
             for (int i = 0; i < colorMapMajor.Length; i++)
