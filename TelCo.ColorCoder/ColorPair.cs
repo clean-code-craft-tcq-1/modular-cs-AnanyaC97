@@ -7,7 +7,6 @@ namespace TelCo.ColorCoder
 {
     public class ColorPairMapping
     {
-
         public static Color[] colorMapMajor, colorMapMinor;
         internal Color majorColor, minorColor;
 
@@ -22,5 +21,32 @@ namespace TelCo.ColorCoder
             return string.Format("MajorColor:{0}, MinorColor:{1}", majorColor.Name, minorColor.Name);
         }
 
+        public static int GetMajorIndex(ColorPairMapping pair)
+        {
+            int majorIndex = -1;
+            for (int i = 0; i < colorMapMajor.Length; i++)
+            {
+                if (colorMapMajor[i] == pair.majorColor)
+                {
+                    majorIndex = i;
+                    break;
+                }
+            }
+            return majorIndex;
+        }
+
+        public static int GetMinorIndex(ColorPairMapping pair)
+        {
+            int minorIndex = -1;
+            for (int i = 0; i < colorMapMinor.Length; i++)
+            {
+                if (colorMapMinor[i] == pair.minorColor)
+                {
+                    minorIndex = i;
+                    break;
+                }
+            }
+            return minorIndex;
+        }
     }
 }

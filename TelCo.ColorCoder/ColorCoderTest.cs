@@ -33,8 +33,11 @@ namespace TelCo.ColorCoder
 
             testPair2 = new ColorPairMapping() { majorColor = Color.Red, minorColor = Color.Blue };
             pairNumber = ColorCoderFunction.GetPairNumberFromColor(testPair2);
-            Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}", testPair2, pairNumber);
+            Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}\n", testPair2, pairNumber);
             Debug.Assert(pairNumber == 6);
+
+            Console.WriteLine("COLOR PAIR REFERENCE MANUAL:\n");
+            ColorCoderFunction.ColorPairReferenceManual();
         }
     }
 }

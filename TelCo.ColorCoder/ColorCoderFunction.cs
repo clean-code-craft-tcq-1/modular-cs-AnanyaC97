@@ -25,23 +25,10 @@ namespace TelCo.ColorCoder
 
         public static int GetPairNumberFromColor(ColorPairMapping pair)
         {
-            int majorIndex = -1, minorIndex = -1;
-            for (int i = 0; i < colorMapMajor.Length; i++)
-            {
-                if (colorMapMajor[i] == pair.majorColor)
-                {
-                    majorIndex = i;
-                    break;
-                }
-            }
-            for (int i = 0; i < colorMapMinor.Length; i++)
-            {
-                if (colorMapMinor[i] == pair.minorColor)
-                {
-                    minorIndex = i;
-                    break;
-                }
-            }
+
+            int majorIndex = GetMajorIndex(pair);
+            int minorIndex = GetMinorIndex(pair);
+
             if (majorIndex == -1 || minorIndex == -1)
             {
                 throw new ArgumentException(
@@ -49,6 +36,12 @@ namespace TelCo.ColorCoder
             }
 
             return (majorIndex * colorMapMinor.Length) + (minorIndex + 1);
+        }
+
+        public static void ColorPairReferenceManual()
+        {
+            for (int i = 1; i <= (colorMapMinor.Length * colorMapMajor.Length); i++)
+                Console.WriteLine("Pair Number: {0}, Colors: {1}\n", i, GetColorFromPairNumber(i));
         }
     }
 }
