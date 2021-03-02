@@ -6,38 +6,38 @@ namespace TelCo.ColorCoder
 {
     class ColorCoderTest
     {
+
         private static void Main(string[] args)
         {
-            int pairNumber = 4;
-            ColorPairMapping testPair1 = ColorCoderFunction.GetColorFromPairNumber(pairNumber);
-            Console.WriteLine("[In]Pair Number: {0},[Out] Colors: {1}\n", pairNumber, testPair1);
-            Debug.Assert(testPair1.majorColor == Color.White);
-            Debug.Assert(testPair1.minorColor == Color.Brown);
+            ColorCoderTest colorCoderTest = new ColorCoderTest();
 
-            pairNumber = 5;
-            testPair1 = ColorCoderFunction.GetColorFromPairNumber(pairNumber);
-            Console.WriteLine("[In]Pair Number: {0},[Out] Colors: {1}\n", pairNumber, testPair1);
-            Debug.Assert(testPair1.majorColor == Color.White);
-            Debug.Assert(testPair1.minorColor == Color.SlateGray);
+            colorCoderTest.DisplayPairNumber(4, Color.White, Color.Brown);
+            colorCoderTest.DisplayPairNumber(5, Color.White, Color.SlateGray);
+            colorCoderTest.DisplayPairNumber(23, Color.Violet, Color.Green);
 
-            pairNumber = 23;
-            testPair1 = ColorCoderFunction.GetColorFromPairNumber(pairNumber);
-            Console.WriteLine("[In]Pair Number: {0},[Out] Colors: {1}\n", pairNumber, testPair1);
-            Debug.Assert(testPair1.majorColor == Color.Violet);
-            Debug.Assert(testPair1.minorColor == Color.Green);
+            ColorPairGroup colorPair = new ColorPairGroup() { majorColor = Color.Yellow, minorColor = Color.Green };
+            colorCoderTest.DisplayColor(colorPair, 18);
 
-            ColorPairMapping testPair2 = new ColorPairMapping() { majorColor = Color.Yellow, minorColor = Color.Green };
-            pairNumber = ColorCoderFunction.GetPairNumberFromColor(testPair2);
-            Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}\n", testPair2, pairNumber);
-            Debug.Assert(pairNumber == 18);
-
-            testPair2 = new ColorPairMapping() { majorColor = Color.Red, minorColor = Color.Blue };
-            pairNumber = ColorCoderFunction.GetPairNumberFromColor(testPair2);
-            Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}\n", testPair2, pairNumber);
-            Debug.Assert(pairNumber == 6);
+            colorPair = new ColorPairGroup() { majorColor = Color.Red, minorColor = Color.Blue };
+            colorCoderTest.DisplayColor(colorPair, 6);
 
             Console.WriteLine("COLOR PAIR REFERENCE MANUAL:\n");
-            ColorCoderFunction.ColorPairReferenceManual();
+            ColorPairMappingReference.ColorPairReferenceManual();
+        }
+
+        public void DisplayPairNumber(int pairNumber, Color expectedMajor, Color expectedMinor)
+        {
+            ColorPairGroup testPair = ColorPairMappingReference.GetColorFromPairNumber(pairNumber);
+            Console.WriteLine("[In]Pair Number: {0},[Out] Colors: {1}\n", pairNumber, testPair);
+            Debug.Assert(testPair.majorColor == expectedMajor);
+            Debug.Assert(testPair.minorColor == expectedMinor);
+        }
+
+        public void DisplayColor(ColorPairGroup colorPairGroup, int expectedPairNumber)
+        {
+            int pairNumber = ColorPairMappingReference.GetPairNumberFromColor(colorPairGroup);
+            Console.WriteLine("[In]Colors: {0}, [Out] PairNumber: {1}\n", colorPairGroup, pairNumber);
+            Debug.Assert(pairNumber == expectedPairNumber);
         }
     }
 }
